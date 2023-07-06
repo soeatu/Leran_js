@@ -1,10 +1,34 @@
-import "./styles.css";
+/**
+ * 分割代入
+ */
 
-document.getElementById("app").innerHTML = `
-<h1>Hello Vanilla!</h1>
-<div>
-  We use the same configuration as Parcel to bundle this sandbox, you can find more
-  info about Parcel 
-  <a href="https://parceljs.org" target="_blank" rel="noopener noreferrer">here</a>.
-</div>
-`;
+// const profile = {
+//   nameq: "m",
+//   age: 4,
+// };
+
+// const { nameq, age } = profile;
+// messeage = `私は${nameq},年は${age}`;
+// console.log(messeage);
+
+/**
+ * スプレッド構文
+ */
+//展開
+// const arr1 = [1, 2];
+// console.log(...arr1);
+// const func1 = (n1, n2) => console.log(n1 + n2);
+// func1(...arr1);
+// //まとめる
+// const arr2 = [1, 2, 3, 4, 5];
+// const [num1, num2, ...num3] = arr2;
+// console.log(num3);
+// //コピーと結合
+// const arr3 = [10, 20];
+// const arr4 = [...arr3];//代入で入れると参照渡しになるよ
+
+// const arr5 = [...arr3, ...arr4];
+// const num = 100;
+// //左がfalseなら右を返す
+// const fee = num || "MMM";
+// console.log(fee);
