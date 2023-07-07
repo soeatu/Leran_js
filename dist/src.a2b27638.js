@@ -180,16 +180,28 @@ var onClickAdd = function onClickAdd() {
   //テキストボックスの値を取得して初期化
   var inputText = document.getElementById("add-text").value;
   document.getElementById("add-text").value = "";
+  createInncompleteList(inputText);
+};
+document.getElementById("add-button").addEventListener("click", function () {
+  return onClickAdd();
+});
 
+//リストから要素を削除
+var deleteFotmIncompleteList = function deleteFotmIncompleteList(target) {
+  document.getElementById("incompletelist").removeChild(target);
+};
+
+//未完了リストに追加する関数
+var createInncompleteList = function createInncompleteList(text) {
   //div生成
   var div = document.createElement("div");
   div.className = "list-row";
 
   //liタグ生成
   var li = document.createElement("li");
-  li.innerText = inputText;
+  li.innerText = text;
 
-  //buttonタグを生成
+  //完了buttonタグを生成
   var completButton = document.createElement("button");
   completButton.innerText = "完了";
   completButton.addEventListener("click", function () {
@@ -202,16 +214,25 @@ var onClickAdd = function onClickAdd() {
     //liタグ生成
     var li = document.createElement("li");
     li.innerText = text;
-    //buttonタグを生成
+    //戻るbuttonタグを生成
     var returnButton = document.createElement("button");
     returnButton.innerText = "戻す";
+    returnButton.addEventListener("click", function () {
+      //押された戻すボタンのdivを完了リストから削除
+      var deleteTraget = returnButton.parentNode;
+      document.getElementById("completelist").removeChild(deleteTraget);
+      //TODO内容テキストを取得
+      var text = returnButton.parentNode.firstElementChild.innerText;
+      createInncompleteList(text);
+    });
     addTarget.appendChild(li);
     addTarget.appendChild(returnButton);
     document.getElementById("completelist").appendChild(addTarget);
 
     //押された削除ボタンのdivを削除
-    deleteFotmIncompleteList(deleteButton.parentNode);
+    deleteFotmIncompleteList(completButton.parentNode);
   });
+  //削除ボタン
   var deleteButton = document.createElement("button");
   deleteButton.innerText = "削除";
   deleteButton.addEventListener("click", function () {
@@ -224,14 +245,6 @@ var onClickAdd = function onClickAdd() {
   div.appendChild(deleteButton);
   //未完了リストに追加
   document.getElementById("incompletelist").appendChild(div);
-};
-document.getElementById("add-button").addEventListener("click", function () {
-  return onClickAdd();
-});
-
-//リストから要素を削除
-var deleteFotmIncompleteList = function deleteFotmIncompleteList(target) {
-  document.getElementById("incompletelist").removeChild(target);
 };
 },{"./styles.css":"src/styles.css"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];

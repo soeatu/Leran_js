@@ -5,15 +5,29 @@ const onClickAdd = () => {
   const inputText = document.getElementById("add-text").value;
   document.getElementById("add-text").value = "";
 
+  createInncompleteList(inputText);
+};
+
+document
+  .getElementById("add-button")
+  .addEventListener("click", () => onClickAdd());
+
+//リストから要素を削除
+const deleteFotmIncompleteList = (target) => {
+  document.getElementById("incompletelist").removeChild(target);
+};
+
+//未完了リストに追加する関数
+const createInncompleteList = (text) => {
   //div生成
   const div = document.createElement("div");
   div.className = "list-row";
 
   //liタグ生成
   const li = document.createElement("li");
-  li.innerText = inputText;
+  li.innerText = text;
 
-  //buttonタグを生成
+  //完了buttonタグを生成
   const completButton = document.createElement("button");
   completButton.innerText = "完了";
   completButton.addEventListener("click", () => {
@@ -26,17 +40,25 @@ const onClickAdd = () => {
     //liタグ生成
     const li = document.createElement("li");
     li.innerText = text;
-    //buttonタグを生成
+    //戻るbuttonタグを生成
     const returnButton = document.createElement("button");
     returnButton.innerText = "戻す";
+    returnButton.addEventListener("click", () => {
+      //押された戻すボタンのdivを完了リストから削除
+      const deleteTraget = returnButton.parentNode;
+      document.getElementById("completelist").removeChild(deleteTraget);
+      //TODO内容テキストを取得
+      const text = returnButton.parentNode.firstElementChild.innerText;
+      createInncompleteList(text);
+    });
     addTarget.appendChild(li);
     addTarget.appendChild(returnButton);
     document.getElementById("completelist").appendChild(addTarget);
 
     //押された削除ボタンのdivを削除
-    deleteFotmIncompleteList(deleteButton.parentNode);
+    deleteFotmIncompleteList(completButton.parentNode);
   });
-
+  //削除ボタン
   const deleteButton = document.createElement("button");
   deleteButton.innerText = "削除";
   deleteButton.addEventListener("click", () => {
@@ -49,13 +71,4 @@ const onClickAdd = () => {
   div.appendChild(deleteButton);
   //未完了リストに追加
   document.getElementById("incompletelist").appendChild(div);
-};
-
-document
-  .getElementById("add-button")
-  .addEventListener("click", () => onClickAdd());
-
-//リストから要素を削除
-const deleteFotmIncompleteList = (target) => {
-  document.getElementById("incompletelist").removeChild(target);
 };
